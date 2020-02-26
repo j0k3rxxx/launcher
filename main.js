@@ -6,13 +6,13 @@ const path = require ('path');
 const isDev = require('electron-is-dev');
 let execPath = path.dirname (app.getPath ('exe'));
 
-const server = 'https://rphlauncher.dr3adx.now.sh/'
-const feed = `${server}/update/${process.platform}/${app.getVersion()}`
-
-autoUpdater.setFeedURL(feed)
+// const server = 'https://rphlauncher.dr3adx.now.sh/'
+// const feed = `${server}/update/${process.platform}/${app.getVersion()}`
+//
+// autoUpdater.setFeedURL(feed)
 //
 setInterval(() => {
-    autoUpdater.checkForUpdates()
+    autoUpdater.checkForUpdatesAndNotify()
 }, 10000)
 
 
@@ -31,7 +31,7 @@ function createWindow () {
     win.webContents.openDevTools()
     console.log("Ready to show triggered");
 
-    autoUpdater.checkForUpdates();
+    autoUpdater.checkForUpdatesAndNotify();
 }
 
 app.whenReady().then(createWindow)
