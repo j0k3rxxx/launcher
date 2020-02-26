@@ -1,4 +1,5 @@
 const { ipcRenderer } = require('electron');
+let pb = require('./progressbar.js')
 
 const version = document.getElementById('version');
 const notification = document.getElementById('notification');
@@ -16,6 +17,9 @@ ipcRenderer.on('update_available', () => {
     ipcRenderer.removeAllListeners('update_available');
     message.innerText = 'A new update is available. Downloading now...';
     notification.classList.remove('hidden');
+
+    $("#play").css('display', 'none');
+    $("#downloading").css('display', '');
 });
 
 ipcRenderer.on('update_downloaded', () => {
@@ -24,6 +28,14 @@ ipcRenderer.on('update_downloaded', () => {
     message.innerText = 'Update Downloaded. It will be installed on restart. Restart now?';
     restartButton.classList.remove('hidden');
     notification.classList.remove('hidden');
+
+    $("#play").css('display', '');
+    $("#downloading").css('display', 'none');
+});
+ipcRenderer.on('download_progress', (percent) => {
+    console.log(`Downloaded ${percent}%`);
+    $(".progressbar").attr('data-perc', percent);
+    pb.updateBar();
 });
 
 function closeNotification() {
@@ -41,4 +53,13 @@ ipcRenderer.on("prog", (event, html) => {
 
 $(document).ready(function() {
     ipcRenderer.send('fire');
+    $('#close-button').click(function() {
+        closeNotification();
+    });
+    $('#restart-button').click(function() {
+        restartApp();
+    });
+    $('#play').click(function() {
+        ipcRenderer.send('play');
+    });
 });

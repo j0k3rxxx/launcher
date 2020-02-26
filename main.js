@@ -1,5 +1,6 @@
 const { app, BrowserWindow, dialog, ipcMain, remote } = require('electron');
 const { autoUpdater } = require('electron-updater');
+var exec = require('child_process').execFile;
 
 let win = null;
 const path = require ('path');
@@ -71,6 +72,10 @@ autoUpdater.on('update-downloaded', () => {
     win.webContents.send('update_downloaded');
 });
 
+autoUpdater.on('download-progress', function (progressObj) {
+    win.webContents.send('download_progress', parseInt(progressObj.percent));
+});
+
 var request = require('request');
 var fs = require('fs');
 
@@ -115,17 +120,25 @@ function showProgress(received,total){
 
 ipcMain.on('fire', (event) => {
 
-    var fileURL = "https://tanknite.io/static/client/sprites/bullet_oldd.png";
-// butterfly-wallpaper.jpeg
-    var filename = getFilenameFromUrl(fileURL);
-    var downloadsFolder = execPath;
-    console.log(downloadsFolder)
+//     var fileURL = "https://tanknite.io/static/client/sprites/bullet_oldd.png";
+// // butterfly-wallpaper.jpeg
+//     var filename = getFilenameFromUrl(fileURL);
+//     var downloadsFolder = execPath;
+//     console.log(downloadsFolder)
+//
+//     function getFilenameFromUrl(url){
+//         return url.substring(url.lastIndexOf('/') + 1);
+//     }
+//
+//     var finalPath = downloadsFolder + "\\" + filename;
+//
+//     downloadFile(fileURL, finalPath);
 
-    function getFilenameFromUrl(url){
-        return url.substring(url.lastIndexOf('/') + 1);
-    }
-
-    var finalPath = downloadsFolder + "\\" + filename;
-
-    downloadFile(fileURL, finalPath);
 })
+
+ipcMain.on('play', (event) => {
+    exec('RPH Launcher.exe', function(err, data) {
+        console.log(err)
+        console.log(data.toString());
+    });
+});

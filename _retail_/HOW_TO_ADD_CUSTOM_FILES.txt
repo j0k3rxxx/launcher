@@ -1,0 +1,1 @@
+Edit custom_files.txt by adding lines with following format: FILEDATAID;FILE_PATH
