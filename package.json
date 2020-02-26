@@ -1,0 +1,30 @@
+{
+  "name": "RPHLauncher",
+  "version": "1.0.17",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "build": "electron-builder build --win --publish never",
+    "deploy": "electron-builder build --win --publish always"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron-is-dev": "^1.1.0",
+    "electron-updater": "^4.2.2",
+    "jquery": "^3.4.1",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "electron-builder": "^22.3.2",
+    "electron-packager": "^14.2.1",
+    "electron": "8.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dr3adx/RPHLauncher.git"
+  }
+}
