@@ -5,6 +5,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
+electron-builder.yml
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
@@ -38,8 +39,10 @@ bower_components
 build/Release
 
 # Dependency directories
+.idea/
 node_modules/
 jspm_packages/
+release-builds/
 
 # TypeScript v1 declaration files
 typings/
